@@ -2,4 +2,17 @@
     <string name="app_name">SnapGuard</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="welcome">Welcome Back</string>
+    <string name="email">Enter Email</string>
+    <string name="password">Enter Password</string>
+    <string name="login">Login</string>
+    <string name="new_user">New User?</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="image">image</string>
+
+    <string name="welcome_to">Welcome to SnapGuard</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="already_have_an_account">Already have an Account? Login</string>
 </resources>
