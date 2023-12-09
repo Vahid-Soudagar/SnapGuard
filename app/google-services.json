@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "500252952073",
+    "project_id": "snapguard",
+    "storage_bucket": "snapguard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500252952073:android:80c69e6f89d1b658589ad8",
+        "android_client_info": {
+          "package_name": "com.example.snapguard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAks-5NrosaCqsx79VGBhZpHt6jTS3zWOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

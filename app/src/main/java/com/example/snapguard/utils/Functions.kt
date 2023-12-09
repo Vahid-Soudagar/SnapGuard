@@ -1,30 +1,57 @@
 package com.example.snapguard.utils
 
-import android.text.Editable
 import android.util.Patterns
-import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
+/**
+ * Utility class containing functions for validating email, password, and confirming passwords.
+ *
+ * This class provides methods to validate email addresses, passwords, and confirm that passwords
+ * match. It supports integration with Android's Material Design components like TextInputEditText
+ * and TextInputLayout for seamless integration into modern Android UIs.
+ *
+ * @property emailValidator Validates the format of an email address and checks for emptiness.
+ * @property passwordValidator Validates the strength of a password based on specified criteria.
+ * @property confirmPasswordValidator Checks if a password matches a confirmed password.
+ */
 class Functions {
 
     companion object {
-        fun emailValidator(textInputEditText: TextInputEditText, textInputLayout: TextInputLayout) : Boolean {
+
+        /**
+         * Validates the format of an email address and checks for emptiness.
+         *
+         * @param textInputEditText The TextInputEditText containing the email address.
+         * @param textInputLayout The TextInputLayout associated with the email input field.
+         * @return `true` if the email is valid; otherwise, `false`.
+         */
+        fun emailValidator(textInputEditText: TextInputEditText, textInputLayout: TextInputLayout): Boolean {
             val email = textInputEditText.text.toString()
             val isValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
             if (email.isNullOrEmpty()) {
                 textInputLayout.error = "Email cannot be Empty"
                 return false
             }
+
             if (!isValid) {
                 textInputLayout.error = "Enter Valid Email Address"
                 return false
             }
+
             textInputLayout.error = null
-            return isValid;
+            return isValid
         }
 
-        fun passwordValidator(textInputEditText: TextInputEditText, textInputLayout: TextInputLayout) : Boolean {
+        /**
+         * Validates the strength of a password based on specified criteria.
+         *
+         * @param textInputEditText The TextInputEditText containing the password.
+         * @param textInputLayout The TextInputLayout associated with the password input field.
+         * @return `true` if the password is valid; otherwise, `false`.
+         */
+        fun passwordValidator(textInputEditText: TextInputEditText, textInputLayout: TextInputLayout): Boolean {
             val password = textInputEditText.text.toString()
             val passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+\$).{6,14}$".toRegex()
 
@@ -42,15 +69,24 @@ class Functions {
             textInputLayout.error = null
             return true
         }
-        fun confirmPasswordValidator(passwordEditText: TextInputEditText,
-                                     passwordLayout: TextInputLayout,
-                                     confirmPasswordEditText: TextInputEditText,
-                                     confirmPasswordLayout : TextInputLayout) : Boolean{
 
+        /**
+         * Checks if a password matches a confirmed password.
+         *
+         * @param passwordEditText The TextInputEditText containing the original password.
+         * @param passwordLayout The TextInputLayout associated with the original password input field.
+         * @param confirmPasswordEditText The TextInputEditText containing the confirmed password.
+         * @param confirmPasswordLayout The TextInputLayout associated with the confirmed password input field.
+         * @return `true` if the passwords match; otherwise, `false`.
+         */
+        fun confirmPasswordValidator(
+            passwordEditText: TextInputEditText,
+            passwordLayout: TextInputLayout,
+            confirmPasswordEditText: TextInputEditText,
+            confirmPasswordLayout: TextInputLayout
+        ): Boolean {
             val password = passwordEditText.text.toString()
             val confirmPassword = confirmPasswordEditText.text.toString()
-
-
 
             if (password != confirmPassword) {
                 confirmPasswordLayout.error = "Passwords do not match"
@@ -59,7 +95,6 @@ class Functions {
 
             confirmPasswordLayout.error = null
             return true
-
         }
     }
 }

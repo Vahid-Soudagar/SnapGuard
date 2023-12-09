@@ -15,4 +15,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
     <string name="already_have_an_account">Already have an Account? Login</string>
+    <string name="authentication_required">Authentication Required</string>
+    <string name="please_log_in_or_create_an_account">Please log in or create an account</string>
 </resources>
