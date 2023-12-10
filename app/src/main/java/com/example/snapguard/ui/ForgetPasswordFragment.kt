@@ -10,16 +10,25 @@ import com.example.snapguard.databinding.FragmentForgetPasswordBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
-
+/**
+ * Fragment responsible for handling password reset requests.
+ */
 class ForgetPasswordFragment : Fragment() {
 
-    private lateinit var binding : FragmentForgetPasswordBinding
+    // Binding for the FragmentForgetPassword layout
+    private lateinit var binding: FragmentForgetPasswordBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
-        // Inflate the layout for this fragment
+    /**
+     * Inflates the layout for this fragment and sets up UI elements.
+     */
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentForgetPasswordBinding.inflate(layoutInflater)
         val view = binding.root
 
+        // Set up click listener for the "Send Email" button
         binding.fragmentForgetPasswordBtnSendEmail.setOnClickListener {
             if (validation()) {
                 val emailAddress = binding.fragmentForgetPasswordEmail.text.toString()
@@ -27,10 +36,13 @@ class ForgetPasswordFragment : Fragment() {
             }
         }
 
-
         return view
     }
 
+    /**
+     * Validate user input for email.
+     * @return True if input is valid, false otherwise.
+     */
     private fun validation(): Boolean {
         return com.example.snapguard.utils.Validator.emailValidator(
             binding.fragmentForgetPasswordEmail,
@@ -38,15 +50,24 @@ class ForgetPasswordFragment : Fragment() {
         )
     }
 
+    /**
+     * Send a password reset email to the provided email address using Firebase Authentication.
+     * Display a success message on successful email sending.
+     */
     private fun sendPasswordResetEmail(emailAddress: String) {
         Firebase.auth.sendPasswordResetEmail(emailAddress)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(requireContext(), "Email Send", Toast.LENGTH_LONG).show()
+                    // Password reset email sent successfully
+                    Toast.makeText(requireContext(), "Email Sent", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(requireContext(), "Email sending failed, Try after sometime", Toast.LENGTH_LONG).show()
+                    // Password reset email sending failed
+                    Toast.makeText(
+                        requireContext(),
+                        "Email sending failed, Try after sometime",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
     }
-
 }

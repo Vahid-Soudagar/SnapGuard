@@ -14,17 +14,29 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
+/**
+ * Fragment responsible for user registration.
+ */
 class RegisterFragment : Fragment() {
 
+    // Binding for the FragmentRegister layout
     private lateinit var binding: FragmentRegisterBinding
-    private lateinit var auth : FirebaseAuth
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View? {
-        // Inflate the layout for this fragment
+    // Firebase Authentication instance
+    private lateinit var auth: FirebaseAuth
+
+    /**
+     * Inflates the layout for this fragment, sets up UI elements, and initializes Firebase Authentication.
+     */
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         val view = binding.root
         auth = Firebase.auth
 
+        // Set up navigation and button click listeners
         navigations()
 
         binding.fragmentRegisterBtnRegister.setOnClickListener {
@@ -38,42 +50,61 @@ class RegisterFragment : Fragment() {
         return view
     }
 
+    /**
+     * Set up navigation and click listeners for UI elements.
+     */
     private fun navigations() {
         binding.fragmentRegisterAlreadyHaveAnAccount.setOnClickListener {
+            // Navigate to the loginFragment if the user already has an account
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
     }
 
+    /**
+     * Validate user input for email, password, and confirm password.
+     * @return True if input is valid, false otherwise.
+     */
     private fun validation(): Boolean {
-        val isValidEmail = Validator.emailValidator(binding.fragmentRegisterEmail, binding.fragmentRegisterLayoutEmail)
-        val isValidPassword = Validator.passwordValidator(binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword)
-        val isValidConfirmPassword =
-            Validator.confirmPasswordValidator(binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword,
-                binding.fragmentRegisterConfirmPassword, binding.fragmentRegisterLayoutConfirmPassword)
+        val isValidEmail =
+            Validator.emailValidator(binding.fragmentRegisterEmail, binding.fragmentRegisterLayoutEmail)
+        val isValidPassword =
+            Validator.passwordValidator(binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword)
+        val isValidConfirmPassword = Validator.confirmPasswordValidator(
+            binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword,
+            binding.fragmentRegisterConfirmPassword, binding.fragmentRegisterLayoutConfirmPassword
+        )
 
+        // Check both email and password validity
         return isValidEmail && isValidPassword && isValidConfirmPassword
     }
 
-
-    private fun createUserWithEmailAndPassword(email: String, password: String)  {
+    /**
+     * Create a new user with the provided email and password using Firebase Authentication.
+     * Display a success message and navigate to the homeFragment on success.
+     */
+    private fun createUserWithEmailAndPassword(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener() { task ->
+            .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    // Registration successful
                     Toast.makeText(context, "Register Successfully", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
                 }
-            }.addOnFailureListener() {task ->
+            }.addOnFailureListener { task ->
+                // Registration failed, display error message
                 Toast.makeText(context, task.message, Toast.LENGTH_LONG).show()
             }
     }
 
+    /**
+     * Check if a user is already logged in on fragment start and navigate to the homeFragment if true.
+     */
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
         if (currentUser != null) {
+            // User already logged in, navigate to homeFragment
             findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
         }
     }
-
-
 }
