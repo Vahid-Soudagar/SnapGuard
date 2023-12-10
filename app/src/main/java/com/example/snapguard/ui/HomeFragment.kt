@@ -4,12 +4,17 @@ import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.findNavController
 import com.example.snapguard.R
 import com.example.snapguard.databinding.FragmentHomeBinding
@@ -31,9 +36,39 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         val view = binding.root
 
+        // Set up the Toolbar
+        val toolbar: Toolbar = view.findViewById(R.id.toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+        // Enable options menu
+        setHasOptionsMenu(true)
+
         auth = Firebase.auth
 
         return view
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.options_menu_logout -> {
+                signOut()
+                return true
+            }
+            // Add other cases if you have more menu items
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun signOut() {
+        auth.signOut()
+        // Navigate to the appropriate screen after logout
+        findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
     }
 
 
