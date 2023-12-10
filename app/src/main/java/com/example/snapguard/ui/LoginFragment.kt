@@ -87,9 +87,9 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     Toast.makeText(context, "Login Successfully", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                } else {
-                    Toast.makeText(context, "Login Failed" + task.exception, Toast.LENGTH_LONG).show()
                 }
+            }.addOnFailureListener() {task ->
+                Toast.makeText(context, "Login Failed\n"+task.message, Toast.LENGTH_LONG).show()
             }
     }
 
