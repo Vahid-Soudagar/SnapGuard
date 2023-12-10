@@ -17,4 +17,6 @@
     <string name="already_have_an_account">Already have an Account? Login</string>
     <string name="authentication_required">Authentication Required</string>
     <string name="please_log_in_or_create_an_account">Please log in or create an account</string>
+    <string name="welcome_to_the_forgetful_password_club_don_t_forget_your_password_or_do_it_s_a_club_tradition">Welcome to the Forgetful Password Club! Don\'t forget your password... or do, it\'s a club tradition! 😜</string>
+    <string name="send_email">Send Email</string>
 </resources>

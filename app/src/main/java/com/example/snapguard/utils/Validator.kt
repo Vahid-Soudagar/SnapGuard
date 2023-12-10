@@ -15,7 +15,7 @@ import com.google.android.material.textfield.TextInputLayout
  * @property passwordValidator Validates the strength of a password based on specified criteria.
  * @property confirmPasswordValidator Checks if a password matches a confirmed password.
  */
-class Functions {
+class Validator {
 
     companion object {
 

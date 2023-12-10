@@ -1,8 +1,6 @@
 package com.example.snapguard.ui
 
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +9,7 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.snapguard.R
 import com.example.snapguard.databinding.FragmentRegisterBinding
-import com.example.snapguard.utils.Functions
+import com.example.snapguard.utils.Validator
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -47,10 +45,10 @@ class RegisterFragment : Fragment() {
     }
 
     private fun validation(): Boolean {
-        val isValidEmail = Functions.emailValidator(binding.fragmentRegisterEmail, binding.fragmentRegisterLayoutEmail)
-        val isValidPassword = Functions.passwordValidator(binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword)
+        val isValidEmail = Validator.emailValidator(binding.fragmentRegisterEmail, binding.fragmentRegisterLayoutEmail)
+        val isValidPassword = Validator.passwordValidator(binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword)
         val isValidConfirmPassword =
-            Functions.confirmPasswordValidator(binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword,
+            Validator.confirmPasswordValidator(binding.fragmentRegisterPassword, binding.fragmentRegisterLayoutPassword,
                 binding.fragmentRegisterConfirmPassword, binding.fragmentRegisterLayoutConfirmPassword)
 
         return isValidEmail && isValidPassword && isValidConfirmPassword

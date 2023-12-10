@@ -2,6 +2,8 @@ package com.example.snapguard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.NavHostFragment
 import com.example.snapguard.databinding.ActivityMainBinding
 
@@ -12,7 +14,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
     }
 }
