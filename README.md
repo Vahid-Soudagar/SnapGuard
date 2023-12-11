@@ -26,6 +26,7 @@ SnapGuard is an Android application focused on enhancing security by providing a
 - Confirm password matching
 - Screenshot prevention
 - Custom authentication dialog
+- Profile Update
 
 ## Getting Started
 
