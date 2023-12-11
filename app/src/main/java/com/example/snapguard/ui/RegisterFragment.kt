@@ -9,10 +9,14 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.snapguard.R
 import com.example.snapguard.databinding.FragmentRegisterBinding
+import com.example.snapguard.models.User
 import com.example.snapguard.utils.Validator
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.database
 
 /**
  * Fragment responsible for user registration.
@@ -24,17 +28,16 @@ class RegisterFragment : Fragment() {
 
     // Firebase Authentication instance
     private lateinit var auth: FirebaseAuth
+    private lateinit var database : DatabaseReference
 
     /**
      * Inflates the layout for this fragment, sets up UI elements, and initializes Firebase Authentication.
      */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
         val view = binding.root
         auth = Firebase.auth
+        database = Firebase.database.reference
 
         // Set up navigation and button click listeners
         navigations()
@@ -87,6 +90,12 @@ class RegisterFragment : Fragment() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Registration successful
+                    var currentUser = auth.currentUser
+                    val userId = currentUser?.uid
+                    val user = userId?.let { User(it, email, password, "", "", "") };
+                    if (userId != null) {
+                        database.child("Users").child(userId).setValue(user)
+                    }
                     Toast.makeText(context, "Register Successfully", Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
                 }
@@ -95,6 +104,7 @@ class RegisterFragment : Fragment() {
                 Toast.makeText(context, task.message, Toast.LENGTH_LONG).show()
             }
     }
+
 
     /**
      * Check if a user is already logged in on fragment start and navigate to the homeFragment if true.

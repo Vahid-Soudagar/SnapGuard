@@ -1,6 +1,7 @@
 package com.example.snapguard.utils
 
 import android.util.Patterns
+import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -95,6 +96,11 @@ class Validator {
 
             confirmPasswordLayout.error = null
             return true
+        }
+
+        fun editTextValidator (editText: EditText) : Boolean {
+            val data = editText.text.toString()
+            return !data.isNullOrEmpty()
         }
     }
 }

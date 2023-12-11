@@ -80,6 +80,10 @@ class HomeFragment : Fragment() {
                 signOut()
                 return true
             }
+            R.id.profileFragment -> {
+                findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+                return true
+            }
             // Add other cases if you have more menu items
             else -> return super.onOptionsItemSelected(item)
         }

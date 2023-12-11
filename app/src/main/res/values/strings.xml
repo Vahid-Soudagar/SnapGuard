@@ -21,4 +21,11 @@
     <string name="send_email">Send Email</string>
     <string name="log_out">Log out</string>
     <string name="profile">Profile</string>
+    <string name="full_name">Full Name</string>
+    <string name="email_">Email</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="edit_profile_photo">Edit Profile Photo</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="upload_image">Upload Image</string>
 </resources>
